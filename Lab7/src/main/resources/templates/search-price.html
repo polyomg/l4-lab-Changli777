@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search By Price</title>
+</head>
+<body>
+<h3>SEARCH BY PRICE</h3>
+
+<form action="/product/search-price" method="get">
+    <input name="minPrice" th:value="${minPrice} ?: ''" placeholder="Min Price" />
+    <input name="maxPrice" th:value="${maxPrice} ?: ''" placeholder="Max Price" />
+    <button type="submit">Search</button>
+</form>
+
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Create Date</th>
+    </tr>
+    <tr th:each="item : ${page.content}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.createDate}"></td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(page.content)}">
+        <td colspan="4">No products found in this price range.</td>
+    </tr>
+</table>
+
+<!-- Paging đơn giản -->
+<div>
+    <span th:if="${!page.first}">
+        <a th:href="@{/product/search-price(minPrice=${minPrice}, maxPrice=${maxPrice}, p=${page.number-1})}">Prev</a>
+    </span>
+
+    <span th:each="i : ${#numbers.sequence(0, page.totalPages-1)}">
+        <a th:href="@{/product/search-price(minPrice=${minPrice}, maxPrice=${maxPrice}, p=${i})}"
+           th:text="${i+1}"
+           th:classappend="${i == page.number} ? 'current' : ''"></a>
+    </span>
+
+    <span th:if="${!page.last}">
+        <a th:href="@{/product/search-price(minPrice=${minPrice}, maxPrice=${maxPrice}, p=${page.number+1})}">Next</a>
+    </span>
+</div>
+
+</body>
+</html>

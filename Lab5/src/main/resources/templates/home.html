@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Trang chủ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #a2c2e2, #f4f4f4);
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+        }
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>🎉 Chào mừng bạn đến với trang chủ!</h1>
+<p>Đăng nhập thành công. Hãy khám phá các sản phẩm của chúng tôi nhé 😄</p>
+
+<a href="/item/index">🛒 Xem danh sách sản phẩm</a> |
+<a href="/account/logout">🚪 Đăng xuất</a>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SEARCH & PAGE BÀI 5</title>
+</head>
+<body>
+<h2>SEARCH & PAGE (Bài 5)</h2>
+
+<!-- Form search từ khóa -->
+<form th:action="@{/product/search-bai5}" method="get">
+    <input type="text" name="keywords" th:value="${keywords} ?: ''" placeholder="Enter keyword"/>
+    <button type="submit">Search</button>
+</form>
+
+<!-- Bảng kết quả -->
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="item : ${page.content}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(page.content)}">
+        <td colspan="3">No products found.</td>
+    </tr>
+</table>
+
+<!-- Phân trang -->
+<div>
+    <a th:href="@{/product/search-bai5(p=0, keywords=${keywords})}">First</a>
+    <a th:href="@{/product/search-bai5(p=${page.number-1}, keywords=${keywords})}" th:if="${!page.first}">Previous</a>
+    <a th:href="@{/product/search-bai5(p=${page.number+1}, keywords=${keywords})}" th:if="${!page.last}">Next</a>
+    <a th:href="@{/product/search-bai5(p=${page.totalPages-1}, keywords=${keywords})}">Last</a>
+</div>
+
+<!-- Thông tin phân trang -->
+<ul>
+    <li>Số thực thể hiện tại: <span th:text="${page.numberOfElements}"></span></li>
+    <li>Trang số: <span th:text="${page.number + 1}"></span></li>
+    <li>Kích thước trang: <span th:text="${page.size}"></span></li>
+    <li>Tổng số thực thể: <span th:text="${page.totalElements}"></span></li>
+    <li>Tổng số trang: <span th:text="${page.totalPages}"></span></li>
+</ul>
+
+</body>
+</html>
